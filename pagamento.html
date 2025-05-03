@@ -1,73 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento - Delivery Rápido</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
+
 <body>
-    <header>
-        <h1>Confirmação do Pedido</h1>
-    </header>
+  <header>
+    <h1>Delivery Rápido</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Cardápio</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div id="pagamento">
-        <h2>Resumo do Pedido</h2>
+  <main>
+    <section id="finalizar-pedido">
+      <h2>Finalize seu Pedido</h2>
 
-        <!-- Resumo dos itens -->
-        <div id="resumo-pedido">
-            <!-- Itens do carrinho são inseridos aqui via JavaScript -->
+      <!-- Formulário para finalizar a compra -->
+      <form id="form-pedido" onsubmit="finalizarCompra(event)">
+        <div class="campo-formulario">
+          <label for="endereco">Endereço de Entrega</label>
+          <input type="text" id="endereco" name="endereco" required placeholder="Digite seu endereço">
         </div>
 
-        <!-- QR Code do PIX -->
-        <div id="qr-code-container">
-            <img src="qrcode-pix-exemplo.png" alt="QR Code PIX" class="qr-code">
+        <div class="campo-formulario">
+          <label for="forma-pagamento">Forma de Pagamento</label>
+          <select id="forma-pagamento" name="forma-pagamento" required>
+            <option value="pix">PIX</option>
+            <option value="no-local">No local</option>
+          </select>
         </div>
 
-        <!-- Opção de pagamento no local -->
-        <button class="btn-pagar" id="btn-pagar-local">Pagar no local</button>
+        <button type="submit" class="btn-add">Finalizar Compra</button>
+      </form>
+    </section>
 
-        <!-- Botão de finalizar pagamento -->
-        <button class="btn-pagar" id="btn-confirmar-pagamento">Confirmar Pedido</button>
+    <!-- Resumo do pedido -->
+    <section id="resumo-pedido">
+      <h2>Resumo do Pedido</h2>
+      <!-- Itens do pedido serão carregados aqui dinamicamente -->
+    </section>
+
+    <!-- Total do pedido -->
+    <div id="total-pedido">
+      <!-- Total será calculado e exibido aqui -->
     </div>
+  </main>
 
-    <script src="script.js"></script>
-    <script>
-        // Carregar os dados do pedido do localStorage e mostrar
-        const pedido = JSON.parse(localStorage.getItem('carrinho'));
-        const resumoPedido = document.getElementById('resumo-pedido');
+  <footer>
+    <p>&copy; 2025 Delivery Rápido. Todos os direitos reservados.</p>
+  </footer>
 
-        if (pedido && pedido.length > 0) {
-            pedido.forEach(item => {
-                const divItem = document.createElement('div');
-                divItem.classList.add('item-pedido');
-                divItem.innerHTML = `
-                    <p>${item.nome} - R$ ${item.preco}</p>
-                    <p>Quantidade: ${item.quantidade}</p>
-                `;
-                resumoPedido.appendChild(divItem);
-            });
+  <script>
+    // Função para finalizar a compra
+    function finalizarCompra(event) {
+      event.preventDefault();
 
-            const total = pedido.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
-            const totalDiv = document.createElement('div');
-            totalDiv.classList.add('total');
-            totalDiv.innerHTML = `<h3>Total: R$ ${total.toFixed(2)}</h3>`;
-            resumoPedido.appendChild(totalDiv);
-        }
+      // Obtém os valores do formulário
+      const endereco = document.getElementById('endereco').value;
+      const formaPagamento = document.getElementById('forma-pagamento').value;
 
-        // Funcionalidade de "Pagar no local"
-        document.getElementById('btn-pagar-local').addEventListener('click', () => {
-            alert('Você escolheu pagar no local! Agradecemos seu pedido.');
-            localStorage.removeItem('carrinho');
-            window.location.href = 'index.html'; // Redireciona de volta para a página inicial
-        });
+      // Verifica se o carrinho está vazio
+      const pedido = JSON.parse(localStorage.getItem('carrinho')) || [];
+      if (pedido.length === 0) {
+        alert('Seu carrinho está vazio.');
+        return;
+      }
 
-        // Funcionalidade de "Confirmar Pedido" (aqui você pode adicionar a integração com a API de pagamento)
-        document.getElementById('btn-confirmar-pagamento').addEventListener('click', () => {
-            alert('Pagamento confirmado! Obrigado pelo seu pedido.');
-            localStorage.removeItem('carrinho');
-            window.location.href = 'index.html'; // Redireciona para a página inicial
-        });
-    </script>
+      // Mostra o resumo do pedido
+      const resumoPedido = document.getElementById('resumo-pedido');
+      resumoPedido.innerHTML = '<h3>Resumo do Pedido:</h3>';
+      pedido.forEach(item => {
+        const divItem = document.createElement('div');
+        divItem.classList.add('item-pedido');
+        divItem.innerHTML = `
+          <p>${item.nome} - R$ ${item.preco.toFixed(2)}</p>
+          <p>Quantidade: ${item.quantidade}</p>
+          <p>Subtotal: R$ ${(item.preco * item.quantidade).toFixed(2)}</p>
+        `;
+        resumoPedido.appendChild(divItem);
+      });
+
+      // Calcula o total do pedido
+      const total = pedido.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+      const totalPedido = document.getElementById('total-pedido');
+      totalPedido.innerHTML = `<h3>Total: R$ ${total.toFixed(2)}</h3>`;
+
+      // Exibe mensagem de sucesso
+      alert(`Pedido realizado com sucesso!\nEndereço: ${endereco}\nForma de pagamento: ${formaPagamento}`);
+
+      // Limpa o carrinho
+      localStorage.removeItem('carrinho');
+
+      // Redireciona para a página inicial após o pedido
+      window.location.href = 'index.html';
+    }
+
+    // Carregar dados do carrinho no carregamento da página
+    window.onload = function () {
+      const pedido = JSON.parse(localStorage.getItem('carrinho')) || [];
+      if (pedido.length === 0) {
+        document.getElementById('resumo-pedido').innerHTML = '<p>Seu carrinho está vazio.</p>';
+      }
+    }
+  </script>
 </body>
 </html>

@@ -6,6 +6,8 @@
   <title>Pagamento - Delivery Rápido</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
+  <!-- Incluir a biblioteca para gerar QR Code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 
 <body>
@@ -22,7 +24,6 @@
   <main>
     <section id="finalizar-pedido">
       <h2>Finalize seu Pedido</h2>
-
       <!-- Formulário para finalizar a compra -->
       <form id="form-pedido" onsubmit="finalizarCompra(event)">
         <div class="campo-formulario">

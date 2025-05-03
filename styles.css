@@ -160,3 +160,65 @@ header nav ul li a:hover {
 #carrinho button:hover {
   background-color: #e53232;
 }
+
+/* Formulário de finalização de compra */
+#finalizar-pedido {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 50px auto;
+  max-width: 600px;
+  width: 90%;
+}
+
+#finalizar-pedido h2 {
+  font-size: 2rem;
+  color: #ff3e3e;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 2px solid #ffe6e6;
+  padding-bottom: 10px;
+}
+
+.campo-formulario {
+  margin-bottom: 20px;
+}
+
+.campo-formulario label {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.campo-formulario input, 
+.campo-formulario select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.campo-formulario input:focus, 
+.campo-formulario select:focus {
+  outline: none;
+  border-color: #ff3e3e;
+  box-shadow: 0 0 5px rgba(255, 62, 62, 0.5);
+}
+
+button[type="submit"] {
+  background-color: #ff3e3e;
+  color: white;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #e53232;
+}

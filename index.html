@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Rápido</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Rose Delivery </h1>
+    <nav>
+      <ul>
+        <li><a href="#cardapio">Cardápio</a></li>
+        <li><a href="#carrinho">Carrinho</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="cardapio">
+      <h2 class="titulo-secao">Cardápio</h2>
+      <div class="grid-cardapio">
+        
+        <div class="card-item">
+          <img src="images/Hamburguer.jpg" alt="Hambúrguer Clássico">
+          <h3>Hambúrguer Clássico</h3>
+          <p>Pão, carne, queijo, alface, tomate e maionese.</p>
+          <p>R$ 18,00</p>
+          <button class="btn-add" onclick="adicionarAoCarrinho('Hambúrguer Clássico', 18.00)">Adicionar ao Carrinho</button>
+        </div>
+    
+        <div class="card-item">
+          <img src="images/pizza.png" alt="Pizza de Calabresa">
+          <h3>Pizza de Calabresa</h3>
+          <p>Calabresa, queijo, cebola e orégano.</p>
+          <p>R$ 35,00</p>
+          <button class="btn-add" onclick="adicionarAoCarrinho('Pizza de Calabresa', 35.00)">Adicionar ao Carrinho</button>
+        </div>
+    
+        <div class="card-item">
+          <img src="images/coca-cola.jpg" alt="Refrigerante 350ml">
+          <h3>Refrigerante 350ml</h3>
+          <p>Escolha entre Coca, Fanta ou Guaraná.</p>
+          <p>R$ 6,00</p>
+          <button class="btn-add" onclick="adicionarAoCarrinho('Refrigerante 350ml', 6.00)">Adicionar ao Carrinho</button>
+        </div>
+    
+        <div class="card-item">
+          <img src="images/cachorro_quente.jpg" alt="Cachorro Quente">
+          <h3>Cachorro Quente</h3>
+          <p>Cachorro quente simples.</p>
+          <p>R$ 6,00</p>
+          <button class="btn-add" onclick="adicionarAoCarrinho('Cachorro Quente', 6.00)">Adicionar ao Carrinho</button>
+        </div>
+    
+      </div> <!-- Fim do grid-cardapio -->
+    </section>
+    
+    
+    <section id="carrinho">
+      <h2>Carrinho</h2>
+      <ul id="lista-carrinho"></ul>
+      <p>Total: R$ <span id="total">0.00</span></p>
+      <button onclick="finalizarPedido()">Finalizar Pedido</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Delivery Rápido. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
